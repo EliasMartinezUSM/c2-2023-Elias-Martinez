@@ -13,8 +13,12 @@ export class IPv4Input extends React.Component {
   
     handleChange(event) {
       this.setState({value: event.target.value});
+      console.log(this.condition)
       if (VerificadorV4(this.state.value)){ //Si se detecta una direccion valida se activa el boton
         this.condition = false
+      }
+      else {
+        this.condition = true
       }
     }
   
