@@ -6,7 +6,7 @@ export class IPv4Input extends React.Component {
     constructor(props) {
       super(props);
       this.state = {value: ''};
-      this.condition = true //Permite iniciar con el boton buscar deshabilitado
+      this.isInValid = true //Permite iniciar con el boton buscar deshabilitado
       //this.dataSet = {}
   
       this.handleChange = this.handleChange.bind(this);
@@ -16,10 +16,10 @@ export class IPv4Input extends React.Component {
     handleChange(event) {
       this.setState({value: event.target.value});
       if (VerificadorV4(this.state.value)){ //Si se detecta una direccion valida se activa el boton
-        this.condition = false
+        this.isInValid = false
       }
       else {
-        this.condition = true
+        this.isInValid = true
       }
     }
   
@@ -44,9 +44,9 @@ export class IPv4Input extends React.Component {
             Ingrese una dirección IPv4: 
             <input type="text" value={this.state.value} onChange={this.handleChange} />
           </label>
-          <input type="submit" disabled={this.condition} value="Buscar" />
+          <input type="submit" disabled={this.isInValid} value="Buscar" />
         </form>
-        <Showdata IP={this.state.value}></Showdata>
+        {this.isInValid ? "Dirección IP no válida" : <Showdata IP={this.state.value}></Showdata>}
         </Fragment>
       );
     }

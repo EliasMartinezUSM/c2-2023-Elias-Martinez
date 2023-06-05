@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { fetchData } from '../functions';
 
 export const Showdata = ({IP}) => {
+    const [data, setData] = useState(null)
+    useEffect(() => {
+        function fetch(){
+            fetchData(IP).then(res => setData(res))
+        }
+        fetch()
+    }, [])
     //Extraer datos desde la ip con funcion asincrona
-    let dataSet = {} 
+    /*let dataSet = {} 
     fetchData(IP).then(res => {dataSet = res})
-    console.log(dataSet)
+    console.log(dataSet)*/
     /*Object.entries(dataSet).forEach((entry) => {
         const [key, value] = entry
         console.log(`${key}: ${value}`)
@@ -17,9 +24,5 @@ export const Showdata = ({IP}) => {
         })}
     </ul>
     )*/
-    return (
-        <ul>
-            <li> Listado a </li>
-    </ul>
-    )
+    return data ? "Hay data": "Buscando datos"
 }
