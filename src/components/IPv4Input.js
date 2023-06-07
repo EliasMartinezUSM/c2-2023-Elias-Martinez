@@ -1,51 +1,53 @@
-import React, { Fragment } from 'react';
-import { VerificadorV4} from '../functions';
+import React, { useState, Fragment } from 'react';
+import { VerificadorV4 } from '../functions';
 import { Showdata } from './ShowData';
 
-export class IPv4Input extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {value: ''};
-      this.isInValid = true //Permite iniciar con el boton buscar deshabilitado
+const IPv4Input = () => {
+  const [value, setValue] = useState('');
+  const [isInvalid, setIsInvalid] = useState(true);
+  const [hasClicked, setHasClicked] = useState(false);
   
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+  const displayData = () => {
+    if(hasClicked){
+      return <Showdata IP={value}></Showdata>
     }
-  
-    handleChange(event) {
-      this.setState({value: event.target.value});
-      if (VerificadorV4(this.state.value)){ //Si se detecta una direccion valida se activa el boton
-        this.isInValid = false
-      }
-      else {
-        this.isInValid = true
-      }
-    }
-  
-    handleSubmit(event) {
-      if(VerificadorV4(this.state.value)){
-        
-        event.preventDefault();
-      }
-      else{
-        alert('La dirección IPv4 ingresada es inválida, intente nuevamente');
-        event.preventDefault()
-      }
-
-    }
-  
-    render() {
-      return (
-        <Fragment>
-          <form onSubmit={this.handleSubmit}>
-          <label>
-            Ingrese una dirección IPv4: 
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" disabled={this.isInValid} value="Buscar" />
-        </form>
-        {this.isInValid ? "Dirección IP no válida" : <Showdata IP={this.state.value}></Showdata>}
-        </Fragment>
-      );
+    else{
+      return "Dirección IP válida"
     }
   }
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    setHasClicked(false);
+
+    if (VerificadorV4(event.target.value)) {
+      setIsInvalid(false);
+    } else {
+      setIsInvalid(true);
+    }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setHasClicked(true);
+
+    if (!(VerificadorV4(value))) {
+        alert('La dirección IPv4 ingresada es inválida, intente nuevamente');
+    }
+  }
+
+  return (
+    <Fragment>
+        <form onSubmit={handleSubmit}>
+        <label>
+          Ingrese una dirección IPv4:
+          <input type="text" value={value} onChange={handleChange} />
+        </label>
+        <input type="submit" disabled={isInvalid} value="Buscar" />
+        </form>
+        {isInvalid ? "Dirección IP no válida" : displayData()}
+    </Fragment>  
+  )
+}
+
+export default IPv4Input

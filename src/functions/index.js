@@ -21,8 +21,9 @@ export function VerificadorV4(IP_Dir){ //Funcion para asegurarnos de que el valo
 //Promesa
 export function getData(IP_Dir){
     return new Promise((resolve, reject) => {
-        //let url = "https://ipinfo.io/"+IP_Dir+"/geo"
-        //let data = axios.get(url).data
+        /*let url = "https://ipinfo.io/"+IP_Dir+"/geo"
+        let data = axios.get(url).data
+        resolve(data)*/
         let data = { //Dummie npara trabajar
             "ip": "161.185.160.93",
             "city": "Ne wYork City",
@@ -38,7 +39,7 @@ export function getData(IP_Dir){
     })
 }
 
-//Funcion asincrona para mostrarla en algun componente
+//Funcion asincrona para mostrarla en otro componente
 export async function fetchData(IP_Dir){
     let datosFetched = await getData(IP_Dir)
     //console.log(datosFetched)
