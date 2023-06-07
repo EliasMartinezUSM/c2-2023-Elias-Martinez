@@ -16,7 +16,7 @@ export const Showdata = ({IP}) => {
 
     return hayData ? (<ul>
       {Object.keys(data).map((key)=>{
-        return <li key={key}>{key} : {data[key]}</li>
+        if (key !== "readme"){return <li key={key}>{key} : {data[key]}</li>}
         })}
       </ul>) : "Buscando datos"
 }

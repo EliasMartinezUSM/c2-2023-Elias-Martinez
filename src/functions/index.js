@@ -38,7 +38,7 @@ export function getData(IP_Dir){
     })
 }
 
-//Funcion asincrona para mostrarla en otro componente
+//Funcion asincrona para mostrarla en algun componente
 export async function fetchData(IP_Dir){
     let datosFetched = await getData(IP_Dir)
     //console.log(datosFetched)
