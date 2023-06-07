@@ -7,7 +7,6 @@ export class IPv4Input extends React.Component {
       super(props);
       this.state = {value: ''};
       this.isInValid = true //Permite iniciar con el boton buscar deshabilitado
-      //this.dataSet = {}
   
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,8 +24,7 @@ export class IPv4Input extends React.Component {
   
     handleSubmit(event) {
       if(VerificadorV4(this.state.value)){
-       // let data = getData(this.state.value)   conexion con api
-        //this.dataSet = getData(this.state.value)
+        
         event.preventDefault();
       }
       else{
